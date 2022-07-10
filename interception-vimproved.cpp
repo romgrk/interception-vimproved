@@ -363,7 +363,6 @@ vector<InterceptedKey *> *initInterceptedKeys() {
   space->addMapping(KEY_9, KEY_F9);
   space->addMapping(KEY_0, KEY_F10);
   space->addMapping(KEY_MINUS, KEY_F11);
-  space->addMapping(KEY_EQUAL, KEY_F12);
 
   // @FIXME: this is not working, even though `wev` says keycode 99 is Print
   // PrtSc -> Context Menu
