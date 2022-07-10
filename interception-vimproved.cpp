@@ -331,9 +331,11 @@ vector<InterceptedKey *> *initInterceptedKeys() {
   InterceptedKeyLayer *space = new InterceptedKeyLayer(KEY_SPACE, KEY_SPACE);
 
   // special chars
-  space->addMapping(KEY_E, KEY_ESC);
-  space->addMapping(KEY_D, KEY_DELETE);
+  space->addMapping(KEY_E, KEY_END);
+  space->addMapping(KEY_A, KEY_HOME);
   space->addMapping(KEY_B, KEY_BACKSPACE);
+  space->addMapping(KEY_X, KEY_DELETE);
+  space->addMapping(KEY_O, KEY_ENTER);
 
   // vim home row
   space->addMapping(KEY_H, KEY_LEFT);
@@ -341,11 +343,9 @@ vector<InterceptedKey *> *initInterceptedKeys() {
   space->addMapping(KEY_K, KEY_UP);
   space->addMapping(KEY_L, KEY_RIGHT);
 
-  // vim above home row
-  space->addMapping(KEY_Y, KEY_HOME);
-  space->addMapping(KEY_U, KEY_PAGEDOWN);
-  space->addMapping(KEY_I, KEY_PAGEUP);
-  space->addMapping(KEY_O, KEY_END);
+  // up/down
+  space->addMapping(KEY_U, KEY_PAGEUP);
+  space->addMapping(KEY_D, KEY_PAGEDOWN);
 
   // number row to F keys
   space->addMapping(KEY_1, KEY_F1);
@@ -361,26 +361,13 @@ vector<InterceptedKey *> *initInterceptedKeys() {
   space->addMapping(KEY_MINUS, KEY_F11);
   space->addMapping(KEY_EQUAL, KEY_F12);
 
-  // xf86 audio
-  space->addMapping(KEY_M, KEY_MUTE);
-  space->addMapping(KEY_COMMA, KEY_VOLUMEDOWN);
-  space->addMapping(KEY_DOT, KEY_VOLUMEUP);
-
-  // mouse navigation
-  space->addMapping(BTN_LEFT, BTN_BACK);
-  space->addMapping(BTN_RIGHT, BTN_FORWARD);
-
   // @FIXME: this is not working, even though `wev` says keycode 99 is Print
   // PrtSc -> Context Menu
-  space->addMapping(KEY_SYSRQ, KEY_CONTEXT_MENU);
+  space->addMapping(KEY_M, KEY_CONTEXT_MENU);
 
   // tap caps for esc, hold for ctrl
   InterceptedKeyModifier *caps =
       new InterceptedKeyModifier(KEY_CAPSLOCK, KEY_ESC, KEY_LEFTCTRL);
-
-  // tap enter for enter, hold for ctrl
-  InterceptedKeyModifier *enter =
-      new InterceptedKeyModifier(KEY_ENTER, KEY_ENTER, KEY_RIGHTCTRL);
 
   // @NOTE: modifier keys must go first because layerKey.processInterceptedHeld
   // emits mapped key as soon as the for loop calls layerKey.process..
@@ -388,7 +375,6 @@ vector<InterceptedKey *> *initInterceptedKeys() {
   // not be emitted
   vector<InterceptedKey *> *interceptedKeys = new vector<InterceptedKey *>();
   interceptedKeys->push_back(caps);
-  interceptedKeys->push_back(enter);
   interceptedKeys->push_back(space);
   return interceptedKeys;
 }
