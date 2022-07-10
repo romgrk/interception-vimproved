@@ -198,6 +198,10 @@ protected:
         this->_state = InterceptedKey::OTHER_KEY_HELD;
         return false;
       }
+      else {
+        writeCombo(this->_tapped);
+        this->_shouldEmitTapped = false;
+      }
     }
 
     return true;
